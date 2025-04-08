@@ -1,0 +1,23 @@
+// Copyright © Carecode Oy. All rights reserved.
+{
+  "compilerOptions": {
+    "types": [
+        "chrome"
+    ],
+    "target": "es2015",
+    "module": "es2015",
+    "allowUnreachableCode": false,
+    "allowUnusedLabels": false,
+    "forceConsistentCasingInFileNames": true,
+    "exactOptionalPropertyTypes": true,
+    "noImplicitReturns": true,
+    "noPropertyAccessFromIndexSignature": true,
+    "noUncheckedIndexedAccess": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "removeComments": true,
+    "strict": true,
+    "outDir": "build"
+  },
+  "files": ["src/popup.ts"]
+}

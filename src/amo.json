@@ -1,0 +1,17 @@
+{
+    "name": {
+        "en-US": "FTN Verifier"
+    },
+    "version": {
+        "license": "MIT",
+        "compatibility": ["android","firefox"]
+    },
+    "summary": {
+        "en-US": "Verify pages belonging to the Finnish Trust Network.",
+        "fi": "Tarkista että kyseessä on aito luottamusverkoston kirjautumissivu."
+    },
+    "requires_payment": false,
+    "categories": {
+        "firefox": [ "privacy-security" ]
+    }
+}
