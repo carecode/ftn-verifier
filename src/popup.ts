@@ -1,23 +1,29 @@
 // Copyright © Carecode Oy. All rights reserved.
 
-const hostOrg: { [host: string]: string } = {
-  "auth-prod.megical.com": "hightrust.id",
-  "identify.nordea.com": "Nordea",
-  "kirjaudu.aktia.fi": "Aktia",
-  "online.alandsbanken.fi": "\u00C5landsbanken",
-  "online.s-pankki.fi": "S-Pankki",
-  "saml-idp.op.fi": "OP", // ftn
-  "www.op.fi": "OP", // bank
-  "shared-logon.danskebank.com": "Danske Bank",
-  "tunnistautuminen.suomi.fi": "Suomi.fi", // portal
-  "kortti.tunnistautuminen.suomi.fi": "Suomi.fi", // card
-  "tunnistus.omasp.fi": "omaSP", // ftn
-  "verkkopankki.omasp.fi": "omaSP", // bank
-  "tunnistus.poppankki.fi": "POP Pankki", // ftn
-  "www4.poppankki.fi": "POP Pankki", // bank
-  "tunnistus.saastopankki.fi": "S\u00E4\u00E4st\u00F6pankki - Sparbanken", // ftn
-  "verkkopankki.saastopankki.fi": "S\u00E4\u00E4st\u00F6pankki - Sparbanken", // bank
-  "tunnistus.telia.fi": "Mobiilivarmenne",
+const hostOrg: { [host: string]: { name: string; type: string } } = {
+  "auth-prod.megical.com": { name: "hightrust.id", type: "ftn" },
+  "identify.nordea.com": { name: "Nordea", type: "ftn" },
+  "kirjaudu.aktia.fi": { name: "Aktia", type: "ftn" },
+  "online.alandsbanken.fi": { name: "\u00C5landsbanken", type: "ftn" },
+  "online.s-pankki.fi": { name: "S-Pankki", type: "ftn" },
+  "saml-idp.op.fi": { name: "OP", type: "ftn" },
+  "www.op.fi": { name: "OP", type: "bank" },
+  "shared-logon.danskebank.com": { name: "Danske Bank", type: "ftn" },
+  "tunnistautuminen.suomi.fi": { name: "Suomi.fi", type: "ftn" }, // portal
+  "kortti.tunnistautuminen.suomi.fi": { name: "Suomi.fi", type: "ftn" }, // card
+  "tunnistus.omasp.fi": { name: "omaSP", type: "ftn" },
+  "verkkopankki.omasp.fi": { name: "omaSP", type: "bank" },
+  "tunnistus.poppankki.fi": { name: "POP Pankki", type: "ftn" },
+  "www4.poppankki.fi": { name: "POP Pankki", type: "bank" },
+  "tunnistus.saastopankki.fi": {
+    name: "S\u00E4\u00E4st\u00F6pankki - Sparbanken",
+    type: "ftn",
+  },
+  "verkkopankki.saastopankki.fi": {
+    name: "S\u00E4\u00E4st\u00F6pankki - Sparbanken",
+    type: "bank",
+  },
+  "tunnistus.telia.fi": { name: "Mobiilivarmenne", type: "ftn" },
 };
 
 chrome.tabs.query({ active: true, lastFocusedWindow: true }, (tabs) => {
@@ -47,10 +53,10 @@ chrome.tabs.query({ active: true, lastFocusedWindow: true }, (tabs) => {
 
   if (report !== undefined && report !== null) {
     if (sp !== undefined) {
-      report.innerText = `Aito: ${sp}`;
+      report.innerText = `Aito ${sp.type === "ftn" ? "tunnistuspalvelu" : "pankki"}: ${sp.name}`;
       report.style.color = "green";
       return;
     }
-    report.innerText = `Aitouden tarkastus ep\u00E4onnistui\nhostname: ${h}`;
+    report.innerText = `Sivusto ei ole luottamusverkoston tunnistuspalvelu\nhostname: ${h}`;
   }
 });
